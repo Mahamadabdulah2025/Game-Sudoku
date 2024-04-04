@@ -1,5 +1,4 @@
-document
-  .getElementById("sudoku-board")
+document.getElementById("sudoku-board")
   .addEventListener("keyup", function (event) {
     if (event.target && event.target.nodeName == "TD") {
       var validNum = /[1-9]/;
@@ -78,6 +77,13 @@ var SudokuSolver = (function (testable) {
     var boardArray = boardString.split("");
     if (boardIsInvalid(boardArray)) {
       return false;
+       var tds = document.getElementsByTagName("td");
+  for (var i = 0; i < tds.length; i++) {
+    tds[i].classList.remove("user-differs"); // Clear previous highlighting
+    if (tds[i].classList.contains("user-input") && tds[i].innerText !== solution[i]) {
+      tds[i].classList.add("user-differs"); // Highlight difference
+    }
+  }
     }
     return recursiveSolve(boardString);
   }
